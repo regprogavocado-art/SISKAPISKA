@@ -1,0 +1,61 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  # SISKAPISKA Backend
+  - job_name: 'siskapiska-backend'
+    static_configs:
+      - targets: ['backend:3001']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+    
+  # AI Integration Service
+  - job_name: 'siskapiska-ai'
+    static_configs:
+      - targets: ['ai-service:5000']
+    metrics_path: '/metrics'
+    scrape_interval: 60s
+    
+  # Domain Automation Service
+  - job_name: 'siskapiska-domains'
+    static_configs:
+      - targets: ['domain-service:5002']
+    metrics_path: '/metrics'
+    scrape_interval: 300s # 5 минут для domain checks
+    
+  # Content Generator
+  - job_name: 'siskapiska-content'
+    static_configs:
+      - targets: ['content-generator:5001']
+    metrics_path: '/metrics'
+    scrape_interval: 60s
+    
+  # Scraper Service
+  - job_name: 'siskapiska-scraper'
+    static_configs:
+      - targets: ['scraper-service:5003']
+    metrics_path: '/metrics'
+    scrape_interval: 120s
+    
+  # PostgreSQL
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres:5432']
+    scrape_interval: 60s
+    
+  # Redis
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+    scrape_interval: 30s
+    
+  # Nginx
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx:80']
+    scrape_interval: 30s
